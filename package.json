@@ -1,0 +1,39 @@
+{
+  "name": "northgate-report-summarizer",
+  "version": "1.0.0",
+  "description": "Field report summarizer tool for Northgate FM",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "northgate": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "summarize": "tsx src/cli.ts summarize",
+    "export-pdf": "tsx src/cli.ts export-pdf"
+  },
+  "keywords": [
+    "field-reports",
+    "summarizer",
+    "northgate-fm",
+    "portkey"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^13.1.0",
+    "dotenv": "^16.4.7",
+    "pdfkit": "^0.16.0",
+    "portkey-ai": "^3.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "@types/pdfkit": "^0.13.9",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.8"
+  }
+}
