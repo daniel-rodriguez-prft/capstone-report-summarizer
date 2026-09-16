@@ -7,6 +7,7 @@ import { parseDraftMarkdown } from "./markdown/parser.js";
 import { writeBatchPdfToFile } from "./pdf/document.js";
 import { ReportSummary } from "./types.js";
 import parseJSONL from "./tools/jsonl-parser.js";
+import { mapConcurrent } from "./tools/concurrent-helper.js";
 
 
 export interface SummarizePipelineOptions {
@@ -14,6 +15,7 @@ export interface SummarizePipelineOptions {
   outputPath?: string;
   mock?: boolean;
   model?: string;
+  concurrency?: number;
 }
 
 export interface SummarizePipelineResult {
@@ -52,15 +54,16 @@ export async function runSummarizePipeline(
     }
   }
 
-  const summaries: ReportSummary[] = [];
-  for (const report of reports) {
+  const concurrency = options.concurrency ?? 5;
+
+  // Process all reports with bounded concurrency
+  const summaries = await mapConcurrent(reports, concurrency, async (report) => {
     const analysis = analyzeReport(report);
-    const summary = await summarizeReportWithLLM(report, analysis, {
+    return summarizeReportWithLLM(report, analysis, {
       mock: options.mock,
       model: options.model,
     });
-    summaries.push(summary);
-  }
+  });
 
   const draftMarkdown = generateDraftMarkdown(summaries);
   const draftPath = options.outputPath || "drafts/summary-draft.md";

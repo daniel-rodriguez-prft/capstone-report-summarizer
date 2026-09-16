@@ -241,45 +241,6 @@ export async function generateBatchPdf(summaries: ReportSummary[]): Promise<Buff
       }
     }
 
-    // Dynamic Footer on all pages
-    const range = doc.bufferedPageRange();
-    for (let i = range.start; i < range.start + range.count; i++) {
-      doc.switchToPage(i);
-      const pageNum = i + 1;
-      const totalPages = range.count;
-
-      const footerY = doc.page.height - PDF_STYLES.margins.bottom + 20;
-
-      doc
-        .moveTo(PDF_STYLES.margins.left, footerY - 8)
-        .lineTo(doc.page.width - PDF_STYLES.margins.right, footerY - 8)
-        .strokeColor(PDF_STYLES.colors.border)
-        .lineWidth(0.5)
-        .stroke();
-
-      doc
-        .fontSize(8)
-        .font(PDF_STYLES.fonts.regular)
-        .fillColor(PDF_STYLES.colors.muted)
-        .text(
-          "Northgate FM Facilities Management — Customer Confidential Deliverable",
-          PDF_STYLES.margins.left,
-          footerY,
-          { width: contentWidth / 2, align: "left" }
-        );
-
-      doc
-        .fontSize(8)
-        .font(PDF_STYLES.fonts.regular)
-        .fillColor(PDF_STYLES.colors.muted)
-        .text(
-          `Page ${pageNum} of ${totalPages}`,
-          PDF_STYLES.margins.left + contentWidth / 2,
-          footerY,
-          { width: contentWidth / 2, align: "right" }
-        );
-    }
-
     doc.end();
   });
 }

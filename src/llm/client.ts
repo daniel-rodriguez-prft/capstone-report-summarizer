@@ -32,7 +32,7 @@ export async function summarizeReportWithLLM(
   const portkey = new Portkey({
     baseURL: process.env.PORTKEY_BASE_URL,
     apiKey: process.env.PORTKEY_API_KEY,
-    provider: '@azure-openai-eus2'
+    provider: '@dsvertex'
   });
 
   try {
@@ -44,7 +44,9 @@ export async function summarizeReportWithLLM(
         { role: "user", content: userPrompt }
       ],
       model,
-      max_completion_tokens: 512
+      max_tokens: 512,
+    }, {
+      config: { "cache": { "mode": "semantic" } }
     });
     jsonText = response.choices[0].message?.content as string || "{}";
 
