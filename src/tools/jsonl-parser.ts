@@ -8,7 +8,7 @@ export default async function parseJSONL(filePath: any) {
 		input: fileStream,
 		crlfDelay: Infinity // Recognizes both \r\n and \n correctly
 	});
-	let ofwgkta = [];
+	let result = [];
 
 	// Process the file line-by-line using an async iterator
 	for await (const line of readLine) {
@@ -16,10 +16,10 @@ export default async function parseJSONL(filePath: any) {
 
 		try {
 
-			ofwgkta.push(line);
+			result.push(line);
 		} catch (error: any) {
-			//console.error('Error parsing line:', error.message);
+			console.error('Error parsing line:', error.message);
 		}
 	}
-	return ofwgkta;
+	return result;
 }

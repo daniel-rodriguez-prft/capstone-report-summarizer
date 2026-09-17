@@ -6,11 +6,12 @@ import {
   buildRedactionDisclosure,
   analyzeReport,
 } from "../src/heuristics.js";
+import parseJSONL from "../src/tools/jsonl-parser.js";
 import { RawFieldReport } from "../src/types.js";
 
 describe("Domain Ingestion & Pre-Validation Heuristics", () => {
   describe("parseJsonlReports", () => {
-    it("parses valid JSONL content into RawFieldReport array", () => {
+    it("parses valid JSONL content into RawFieldReport array", async () => {
       const jsonl = [
         JSON.stringify({
           report_id: "FSR-3001",
@@ -34,7 +35,7 @@ describe("Domain Ingestion & Pre-Validation Heuristics", () => {
           resolution: "Monthly filter inspection complete. Belts adjusted.",
           technician_notes: "Minor belt slack corrected.",
         }),
-      ].join("\n");
+      ];
 
       const result = parseJsonlReports(jsonl);
       expect(result.errors).toHaveLength(0);
@@ -54,7 +55,7 @@ describe("Domain Ingestion & Pre-Validation Heuristics", () => {
         }),
         "invalid json line",
         JSON.stringify({ report_id: "FSR-3003" }), // missing asset, arrived_at, departed_at
-      ].join("\n");
+      ];
 
       const result = parseJsonlReports(jsonl);
       expect(result.reports).toHaveLength(1);

@@ -12,7 +12,7 @@ export function formatHoursString(hours: number): string {
 /**
  * Parses raw JSONL string into validated RawFieldReport objects, capturing per-line errors.
  */
-export function parseJsonlReports(rawContent: string): {
+export function parseJsonlReports(rawContent: string[]): {
   reports: RawFieldReport[];
   errors: Array<{ line: number; error: string }>;
 } {
@@ -43,7 +43,6 @@ export function parseJsonlReports(rawContent: string): {
       });
     }
   }
-  console.log('rawContentrawContent', reports)
 
   return { reports, errors };
 }
@@ -163,7 +162,7 @@ export function analyzeReport(report: RawFieldReport): {
   );
   const qualityIssues = detectQualityIssues(report, timeOnSite);
   const redactionDisclosure = buildRedactionDisclosure(report);
-  const formattedAlerts = qualityIssues.map((issue) => `⚠️ ${issue.type}: ${issue.message}`);
+  const formattedAlerts = qualityIssues.map((issue) => `⚠️ hola ${issue.type}: ${issue.message}`);
 
   return {
     timeOnSite,

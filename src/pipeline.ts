@@ -45,7 +45,7 @@ export async function runSummarizePipeline(
   }
 
   const parsedJsonl = await parseJSONL(options.inputPath);
-  const { reports, errors } = parseJsonlReports(parsedJsonl as any);
+  const { reports, errors } = parseJsonlReports(parsedJsonl);
 
   if (errors.length > 0) {
     console.warn(`Encountered ${errors.length} validation warning(s) during JSONL parsing:`);
