@@ -1,5 +1,5 @@
 
-import { RawFieldReport, RawFieldReportSchema, ReportQualityIssue, TimeOnSite } from "./types.js";
+import { RawFieldReport, RawFieldReportSchema, ReportQualityIssue, reportQualityIssueMapping, TimeOnSite } from "./types.js";
 
 /**
  * Formats numeric hours to consistent human-readable string (e.g. 1.0 hr, 2.5 hrs).
@@ -162,7 +162,7 @@ export function analyzeReport(report: RawFieldReport): {
   );
   const qualityIssues = detectQualityIssues(report, timeOnSite);
   const redactionDisclosure = buildRedactionDisclosure(report);
-  const formattedAlerts = qualityIssues.map((issue) => `⚠️ hola ${issue.type}: ${issue.message}`);
+  const formattedAlerts = qualityIssues.map((issue) => `WARNING | ${reportQualityIssueMapping[issue.type]}: ${issue.message}`);
 
   return {
     timeOnSite,

@@ -27,6 +27,12 @@ export interface ReportQualityIssue {
   severity: 'warning' | 'info';
   message: string;
 }
+export const reportQualityIssueMapping = {
+  'TIME_DISCREPANCY': 'Time discrepancy',
+  'SPARSE_REPORT': 'Sparse report',
+  'PARTS_INCONSISTENCY': 'Parts inconsistency',
+  'INVALID_TIMESTAMP': 'Invalid timestamp'
+}
 
 export interface ReportSummary {
   report_id: string;
