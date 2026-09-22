@@ -67,7 +67,7 @@ export function parseDraftMarkdown(markdown: string): ReportSummary[] {
     const whatWasFound = extractSection(/### 1\. What was found/, /### 2\. What was done/);
     const whatWasDone = extractSection(/### 2\. What was done/, /### 3\. Parts fitted/);
     const partsRaw = extractSection(/### 3\. Parts fitted/, /### 4\. Outstanding/);
-    
+
     // Recommendations section goes until next separator (---) or EOF
     const recMatch = block.match(/### 4\. Outstanding[\s\S]*?\n/);
     let recommendations = "";
@@ -104,12 +104,12 @@ export function parseDraftMarkdown(markdown: string): ReportSummary[] {
       asset,
       visit_date: visitDate,
       time_on_site: timeOnSite,
-      redaction_disclosure: redactionDisclosure,
       quality_alerts: qualityAlerts,
       what_was_found: whatWasFound,
       what_was_done: whatWasDone,
       parts_fitted: partsFitted,
       recommendations,
+      reason: redactionDisclosure
     });
   }
 

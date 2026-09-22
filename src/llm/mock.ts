@@ -56,7 +56,6 @@ export function mockSummarizeReport(
     asset: report.asset,
     visit_date: visitDate,
     time_on_site: analysis.timeOnSite,
-    redaction_disclosure: analysis.redactionDisclosure,
     quality_alerts: analysis.formattedAlerts,
     what_was_found: whatWasFound,
     what_was_done: whatWasDone,

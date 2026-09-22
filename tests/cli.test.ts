@@ -35,8 +35,8 @@ describe("CLI & Pipeline End-to-End Integration", () => {
     expect(draftContent).toContain("## Report FSR-3001 | Asset: Chiller CH-04");
     expect(draftContent).toContain("## Report FSR-3002 | Asset: AHU-02");
     expect(draftContent).toContain("## Report FSR-3003 | Asset: Pump P-01");
-    expect(draftContent).toContain("TIME_DISCREPANCY");
-    expect(draftContent).toContain("SPARSE_REPORT");
+    expect(draftContent).toContain("Time discrepancy");
+    expect(draftContent).toContain("Sparse report");
   });
 
   it("executes export-pdf pipeline end-to-end and creates valid customer PDF", async () => {

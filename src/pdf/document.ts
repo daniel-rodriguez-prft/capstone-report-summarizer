@@ -142,12 +142,12 @@ export function createBatchPdfDocument(summaries: ReportSummary[]): PDFKit.PDFDo
         doc.moveDown(0.3);
 
         // Redaction Notice
-        if (visit.redaction_disclosure) {
+        if (visit.reason) {
           doc
             .fontSize(8)
             .font(PDF_STYLES.fonts.oblique)
             .fillColor(PDF_STYLES.colors.redactionText)
-            .text(visit.redaction_disclosure);
+            .text(visit.reason);
           doc.moveDown(0.3);
         }
 

@@ -15,13 +15,12 @@ describe("Consolidated Minimalist PDF Document Compiler", () => {
         stated_hours: 1.0,
         formatted: "11:00 - 12:00 (1.0 hr)",
       },
-      redaction_disclosure:
-        "Notice: Report FSR-3002 contained internal technician identifiers and internal diagnostic notes; these have been omitted from this customer summary.",
       quality_alerts: [],
       what_was_found: "Routine filter and belt inspection.",
       what_was_done: "Adjusted fan belt tension and cleaned filter housing.",
       parts_fitted: [],
       recommendations: "Inspect belt wear in 3 months.",
+      reason: "The technician notes field contained only internal communication preferences and contact details for a staff member, which have been redacted per policy. No technical work details were stored there."
     },
     {
       report_id: "FSR-3001",
@@ -34,8 +33,6 @@ describe("Consolidated Minimalist PDF Document Compiler", () => {
         stated_hours: 2.5,
         formatted: "08:15 - 10:45 (2.5 hrs)",
       },
-      redaction_disclosure:
-        "Notice: Report FSR-3001 contained internal technician identifier (T-118) and internal diagnostic notes; these have been omitted from this customer summary.",
       quality_alerts: ["⚠️ TIME_DISCREPANCY: Stated duration was 2.5 hrs, but timestamps indicate 1.0 hr."],
       what_was_found: "Unit had been short-cycling due to a clogged filter-drier.",
       what_was_done: "Replaced filter-drier, recharged refrigerant, and verified system operating pressure.",
@@ -53,8 +50,6 @@ describe("Consolidated Minimalist PDF Document Compiler", () => {
         stated_hours: 1.0,
         formatted: "09:00 - 10:00 (1.0 hr)",
       },
-      redaction_disclosure:
-        "Notice: Report FSR-3003 contained internal technician identifiers and internal diagnostic notes; these have been omitted from this customer summary.",
       quality_alerts: [],
       what_was_found: "Initial filter check.",
       what_was_done: "Inspected pre-filters.",

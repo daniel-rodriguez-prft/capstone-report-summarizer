@@ -3,10 +3,8 @@ import {
   parseJsonlReports,
   calculateTimeOnSite,
   detectQualityIssues,
-  buildRedactionDisclosure,
   analyzeReport,
 } from "../src/heuristics.js";
-import parseJSONL from "../src/tools/jsonl-parser.js";
 import { RawFieldReport } from "../src/types.js";
 
 describe("Domain Ingestion & Pre-Validation Heuristics", () => {
@@ -126,47 +124,6 @@ describe("Domain Ingestion & Pre-Validation Heuristics", () => {
     });
   });
 
-  describe("buildRedactionDisclosure", () => {
-    it("formats standardized disclosure with technician ID and internal notes", () => {
-      const report: RawFieldReport = {
-        report_id: "FSR-3001",
-        asset: "Chiller CH-04",
-        technician_id: "T-118",
-        arrived_at: "2026-03-02T08:15",
-        departed_at: "2026-03-02T10:45",
-        stated_duration_hours: 2.5,
-        parts_used: [],
-        resolution: "Normal service",
-        technician_notes: "Internal diagnostic note",
-      };
-
-      const disclosure = buildRedactionDisclosure(report);
-      expect(disclosure).toBe(
-        "Notice: Report FSR-3001 contained internal technician identifier (T-118) and internal diagnostic notes; these have been omitted from this customer summary."
-      );
-    });
-
-    it("formats standardized disclosure when technician ID is missing or omitted", () => {
-      const report: RawFieldReport = {
-        report_id: "FSR-3007",
-        asset: "Chiller CH-04",
-        technician_id: null,
-        arrived_at: "2026-03-02T08:15",
-        departed_at: "2026-03-02T10:45",
-        stated_duration_hours: 2.5,
-        parts_used: [],
-        resolution: "Normal service",
-        technician_notes: "Internal diagnostic note",
-      };
-
-      const disclosure = buildRedactionDisclosure(report);
-      expect(disclosure).toBe(
-        "Notice: Report FSR-3001 contained internal technician identifiers and internal diagnostic notes; these have been omitted from this customer summary."
-          .replace("FSR-3001", "FSR-3007")
-      );
-    });
-  });
-
   describe("analyzeReport", () => {
     it("returns comprehensive report analysis bundle", () => {
       const report: RawFieldReport = {
@@ -183,7 +140,6 @@ describe("Domain Ingestion & Pre-Validation Heuristics", () => {
 
       const analysis = analyzeReport(report);
       expect(analysis.timeOnSite.calculated_hours).toBe(2.5);
-      expect(analysis.redactionDisclosure).toContain("T-118");
       expect(analysis.qualityIssues).toHaveLength(0);
       expect(analysis.formattedAlerts).toHaveLength(0);
     });

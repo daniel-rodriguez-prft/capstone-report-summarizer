@@ -61,12 +61,12 @@ export async function summarizeReportWithLLM(
       asset: report.asset,
       visit_date: visitDate,
       time_on_site: analysis.timeOnSite,
-      redaction_disclosure: analysis.redactionDisclosure,
       quality_alerts: analysis.formattedAlerts,
       what_was_found: parsed.what_was_found || "Routine system check and inspection performed.",
       what_was_done: parsed.what_was_done || (report.resolution || "Routine service completed."),
       parts_fitted: Array.isArray(parsed.parts_fitted) ? parsed.parts_fitted : report.parts_used || [],
       recommendations: parsed.recommendations || "No specific follow-up recommendations recorded.",
+      reason: parsed.reason
     };
   } catch (error: any) {
     console.warn(`LLM call failed for ${report.report_id}, falling back to deterministic mock: ${error.message}`);

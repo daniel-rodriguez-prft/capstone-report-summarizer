@@ -39,12 +39,12 @@ export interface ReportSummary {
   asset: string;
   visit_date: string;
   time_on_site: TimeOnSite;
-  redaction_disclosure: string;
   quality_alerts: string[];
   what_was_found: string;
   what_was_done: string;
   parts_fitted: string[];
   recommendations: string;
+  reason?: string;
 }
 
 export interface BatchSummary {

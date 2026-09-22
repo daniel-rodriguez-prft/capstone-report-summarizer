@@ -12,13 +12,15 @@ STRICT POLICIES:
 4. Completeness & Honesty:
    - If a report is sparse, incomplete, or lacks detail, state clearly what is known and state that no further details or recommendations were recorded. Do NOT invent or hallucinate missing work or parts.
 5. You must output valid JSON conforming strictly to the requested schema.
+6. If any personal info was removed or omitted, include a "reason" field with the data that was ommited without disclosing it. Don't add the field otherwise.
 
 Schema:
 {
   "what_was_found": "Plain language summary of condition/fault found (or note that routine check showed normal operation)",
   "what_was_done": "Plain language summary of work/repairs completed",
   "parts_fitted": ["List of parts/materials installed, or empty array if none"],
-  "recommendations": "Plain language recommendations, next steps, or No specific follow-up recommendations recorded."
+  "recommendations": "Plain language recommendations, next steps, or No specific follow-up recommendations recorded.",
+  "reason": "A note mentioning if any personal info was removed without disclosing it. Don't add the field or any message otherwise."
 }
 `;
 }

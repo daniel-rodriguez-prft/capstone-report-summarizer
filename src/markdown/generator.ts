@@ -23,7 +23,9 @@ export function generateDraftMarkdown(summaries: ReportSummary[]): string {
       `- **Stated Hours**: ${summary.time_on_site.stated_hours !== null && summary.time_on_site.stated_hours !== undefined ? summary.time_on_site.stated_hours : "N/A"}`
     );
     lines.push(`- **Calculated Hours**: ${summary.time_on_site.calculated_hours}`);
-    lines.push(`- **Redaction Notice**: ${summary.redaction_disclosure}`);
+    if(summary.reason){
+      lines.push(`- **Redaction Notice**: ${summary.reason}`);
+    }
     lines.push("");
     lines.push("### Quality Alerts");
     if (!summary.quality_alerts || summary.quality_alerts.length === 0) {

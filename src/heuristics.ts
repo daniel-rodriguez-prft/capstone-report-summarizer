@@ -137,22 +137,11 @@ export function detectQualityIssues(
 }
 
 /**
- * Formats standard customer-facing redaction disclosure.
- */
-export function buildRedactionDisclosure(report: RawFieldReport): string {
-  if (report.technician_id) {
-    return `Notice: Report ${report.report_id} contained internal technician identifier (${report.technician_id}) and internal diagnostic notes; these have been omitted from this customer summary.`;
-  }
-  return `Notice: Report ${report.report_id} contained internal technician identifiers and internal diagnostic notes; these have been omitted from this customer summary.`;
-}
-
-/**
  * Runs complete analysis bundle on a single report.
  */
 export function analyzeReport(report: RawFieldReport): {
   timeOnSite: TimeOnSite;
   qualityIssues: ReportQualityIssue[];
-  redactionDisclosure: string;
   formattedAlerts: string[];
 } {
   const timeOnSite = calculateTimeOnSite(
@@ -161,13 +150,11 @@ export function analyzeReport(report: RawFieldReport): {
     report.stated_duration_hours
   );
   const qualityIssues = detectQualityIssues(report, timeOnSite);
-  const redactionDisclosure = buildRedactionDisclosure(report);
   const formattedAlerts = qualityIssues.map((issue) => `WARNING | ${reportQualityIssueMapping[issue.type]}: ${issue.message}`);
 
   return {
     timeOnSite,
     qualityIssues,
-    redactionDisclosure,
     formattedAlerts,
   };
 }

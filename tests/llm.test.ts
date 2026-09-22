@@ -48,7 +48,6 @@ describe("LLM Prompt & Mock Engine", () => {
       expect(summary.asset).toBe("Chiller CH-04");
       expect(summary.visit_date).toBe("2026-03-02");
       expect(summary.time_on_site.formatted).toContain("08:15 - 10:45 (2.5 hrs)");
-      expect(summary.redaction_disclosure).toContain("T-118");
       expect(summary.what_was_found).toContain("short-cycling");
       expect(summary.what_was_done).toContain("filter-drier");
       expect(summary.parts_fitted).toEqual(["filter-drier FD-22"]);
@@ -83,7 +82,7 @@ describe("LLM Prompt & Mock Engine", () => {
       const analysis = analyzeReport(sparseReport);
       const summary = mockSummarizeReport(sparseReport, analysis);
 
-      expect(summary.quality_alerts.some((a) => a.includes("SPARSE_REPORT"))).toBe(true);
+      expect(summary.quality_alerts.some((a) => a.includes("Sparse report"))).toBe(true);
       expect(summary.parts_fitted).toHaveLength(0);
       expect(summary.recommendations).toContain("No specific follow-up recommendations recorded");
     });
